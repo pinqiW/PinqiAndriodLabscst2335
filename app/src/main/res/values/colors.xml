@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--   Lab1 make your own colours, called my_primary, my_secondary, and my_statusBar:-->
+    <color name="my_primary">#86C7E4</color>
+    <color name="my_secondary">#3FA129</color>
+    <color name="my_statusBar">#FFEB3B</color>
+    <color name="my_text">#480553</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

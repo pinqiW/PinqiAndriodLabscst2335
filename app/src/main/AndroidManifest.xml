@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Lab1-1
+The file AndroidManifest.xml is a very important file for your project.
+- It lists all of the <activity> tags or pages that are in your application.
+- It also lists the permissions that your application is allowed to do, such as make phone calls, send SMS messages, download data.
+    - These might cost money for the user since they are making phone calls, using data, etc.
+    - The user must give permission to the application to use those functions on your phone.
+- It also lists the colour scheme of your application, and which is the first Activity to be launched in your application.
+
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -6,9 +16,8 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PinqisAndriodLabs"
         tools:targetApi="31">
