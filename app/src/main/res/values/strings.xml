@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pinqi\'s Andriod Labs</string>
+    <string name="hello_msg">Hello World!</string>
+    <string name="button_msg">I\'m a button</string>
 </resources>
