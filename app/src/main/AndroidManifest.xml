@@ -22,7 +22,7 @@ The file AndroidManifest.xml is a very important file for your project.
         android:theme="@style/Theme.PinqisAndriodLabs"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
