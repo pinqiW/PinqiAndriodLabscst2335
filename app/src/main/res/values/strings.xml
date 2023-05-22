@@ -2,5 +2,9 @@
     <string name="app_name">Pinqi\'s Andriod Labs</string>
     <string name="textView">Hello World!</string>
     <string name="edit">I\'m a button</string>
-    <string name="click">Click me</string>
+    <string name="cButtonText">Do you drink coffee? </string>
+    <string name="click" >Click me</string>
+    <string name="editMessage">I\'m a  EditText widget</string>
+    <string name="hintText">Write someting here</string>
+
 </resources>

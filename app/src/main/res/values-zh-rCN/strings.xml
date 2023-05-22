@@ -4,4 +4,8 @@
     <string name="textView">你好</string>
     <string name="edit">" 我是一个按钮"</string>
     <string name="click">" 按我"</string>
+    <string name="editMessage">我是EditText模块</string>
+    <string name="hintText">写点什么在这里</string>
+    <string name="compoundButtonText">你喝咖啡吗</string>
+    <string name="cButtonText">你喝咖啡吗?</string>
 </resources>
