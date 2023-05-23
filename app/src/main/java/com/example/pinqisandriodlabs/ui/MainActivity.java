@@ -88,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
             model.coffeeOrNot.postValue(isChecked);
         });
 
+
+        variableBinding.theImgButton.setOnClickListener(click ->{
+            CharSequence text = "The width = " + variableBinding.theImgButton.getWidth()
+                    + "dp and the height = " + variableBinding.theImgButton.getHeight() + " dp";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
+            toast.show();
+        });
+
         // loads an XML file on the page
 //        setContentView(R.layout.activity_main);  //not need anymore after viewBinding
     }

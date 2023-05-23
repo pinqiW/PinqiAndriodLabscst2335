@@ -54,8 +54,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo_algonquin"
-        android:id="@+id/logPic"
+        android:id="@+id/theImgView"
 
+        />
+
+    <ImageButton
+        android:id="@+id/theImgButton"
+        android:layout_width="108dp"
+        android:layout_height="90dp"
+        android:src="@drawable/logo_algonquin"
         />
 
     <EditText
@@ -67,6 +74,8 @@
         android:id="@+id/theEditText"
 
         />
+
+
 
 
 </LinearLayout>
