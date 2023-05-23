@@ -26,24 +26,28 @@
         android:layout_marginBottom="50dp"
         android:text="@string/edit"
         android:id="@+id/theButton"
+
         />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cButtonText" />
+        android:text="@string/cButtonText"
+        android:id="@+id/checkBox"
+        />
 
     <Switch
         android:layout_width="214dp"
         android:layout_height="55dp"
         android:text="@string/cButtonText"
-
+        android:id="@+id/switch1"
         />
 
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cButtonText"
+        android:id="@+id/radioButton"
         />
 
     <EditText

@@ -16,6 +16,9 @@ public class MainActivityViewModel extends ViewModel {
     public String theText = "Hello World";
 
     public MutableLiveData<String> editString = new MutableLiveData<>();
+    public MutableLiveData<Boolean> coffeeOrNot = new MutableLiveData<>();
+
+    
 
 
 

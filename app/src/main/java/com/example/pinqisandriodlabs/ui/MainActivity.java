@@ -7,13 +7,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.pinqisandriodlabs.R;
 import com.example.pinqisandriodlabs.data.MainActivityViewModel;
 import com.example.pinqisandriodlabs.databinding.ActivityMainBinding;
 //The Model - View - ViewModel pattern
 //View - This represents the page on screen.
-// In Android, this is the AppCompatActivitiy class. This class uses ViewBinding to hold all of the Widgets on the page.
+// In Android, this is the AppCompatActivity class. This class uses ViewBinding to hold all of the Widgets on the page.
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,8 +59,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // observe changes in coffee selection
+        model.coffeeOrNot.observe(this, selected -> {
+            variableBinding.checkBox.setChecked(selected);
+            variableBinding.radioButton.setChecked(selected);
+            variableBinding.switch1.setChecked(selected);
 
+            CharSequence text = "The value is now: " + model.coffeeOrNot.getValue();
+            int duration = Toast.LENGTH_SHORT;
 
+            Toast toast = Toast.makeText(this /* MyActivity */, text, duration);
+            toast.show();
+
+        });
+
+        //checkBox
+        variableBinding.checkBox.setOnCheckedChangeListener((btn, isChecked) -> {
+            model.coffeeOrNot.postValue(isChecked);
+        });
+
+        //radioButton
+        variableBinding.radioButton.setOnCheckedChangeListener((btn, isChecked) -> {
+            model.coffeeOrNot.postValue(isChecked);
+        });
+
+        //switch
+        variableBinding.switch1.setOnCheckedChangeListener((btn, isChecked) -> {
+            model.coffeeOrNot.postValue(isChecked);
+        });
 
         // loads an XML file on the page
 //        setContentView(R.layout.activity_main);  //not need anymore after viewBinding
