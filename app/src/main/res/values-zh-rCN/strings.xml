@@ -3,4 +3,8 @@
     <string name="app_name">Pinqi\'s Andriod Labs</string>
     <string name="hello_msg">世界你好!</string>
     <string name="button_msg">我是一个按钮</string>
+    <string name="spin_message">旋转国旗</string>
+    <string name="button1">按钮1</string>
+    <string name="button2">按钮2</string>
+    <string name="button3">按钮3</string>
 </resources>
