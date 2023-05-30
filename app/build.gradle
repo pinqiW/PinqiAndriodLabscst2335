@@ -6,7 +6,12 @@ android {
     namespace 'com.example.pinqisandriodlabs'
     compileSdk 33
 
+    buildFeatures{
+        viewBinding true
+    }
+
     defaultConfig {
+
         applicationId "com.example.pinqisandriodlabs"
         minSdk 21
         targetSdk 33
