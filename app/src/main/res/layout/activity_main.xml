@@ -19,25 +19,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="@string/button_msg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="362dp" />
-
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/emailText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -51,9 +34,10 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
         android:text="Enter your password"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="78dp" />
+        app:layout_constraintTop_toBottomOf="@+id/emailText"
+        tools:layout_editor_absoluteX="5dp" />
 
     <EditText
         android:id="@+id/editTextText2"
