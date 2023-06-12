@@ -57,8 +57,12 @@ public class SecondActivity extends AppCompatActivity {
             startActivity(call);
         });
 
+//        Saving files
+//        query where the app has been installed by calling the function getFilesDir(), which returns a File object representing the directory where the app is running from, called the Sandbox.
         File file = new File( getFilesDir(), "Picture.png");
+//        test if a file exists (if you already have a bitmap saved)
         if(file.exists()) {
+//            Now modify your onCreate() function to check if your picture file exists, and if so, then load it into the bitmap object
             Bitmap theImage = BitmapFactory.decodeFile(file.getAbsolutePath());
             binding.profileImage.setImageBitmap(theImage);
         }
@@ -72,9 +76,12 @@ public class SecondActivity extends AppCompatActivity {
                             Intent data = result.getData();
                             Bitmap thumbnail = data.getParcelableExtra("data");
                             binding.profileImage.setImageBitmap(thumbnail);
+//                           save a bitmap object to the disk
                             FileOutputStream fOut = null;
                             try {
+//                                To open a file in the Sandbox
                                 fOut = openFileOutput("Picture.png", Context.MODE_PRIVATE);
+
                                 thumbnail.compress(Bitmap.CompressFormat.PNG, 100, fOut);
                                 fOut.flush();
                                 fOut.close();
