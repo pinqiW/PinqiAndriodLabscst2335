@@ -45,21 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(nextPage); //carries all the data to the next page;
 
-
-
-//
-//                Intent intent2 = new Intent(Intent.ACTION_VIEW);
-//                intent2.setData(Uri.parse("https://www.algonquincollege.com"));
-
-//
-//                startActivity(call);
             }
         });
 
 
     }
-
-
 
 
     @Override //garbage collected, app is gone
