@@ -26,8 +26,15 @@ public class ChatRoom extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_chat_room);
+//        setContentView(R.layout.activity_chat_room);
+        setContentView(binding.getRoot());
 
+        binding.sendButton.setOnClickListener(click -> {
+            messages.add(binding.textInput.getText().toString());
+
+            //clear the previous text:
+            binding.textInput.setText("");
+        });
 
 //        The whole point of the MyRowHolder class is to maintain variables for what you want to set on each row in your list.
         class MyRowHolder extends RecyclerView.ViewHolder {
