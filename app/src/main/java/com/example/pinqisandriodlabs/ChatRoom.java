@@ -21,6 +21,8 @@ public class ChatRoom extends AppCompatActivity {
     ActivityChatRoomBinding binding;
     ArrayList<String> messages = new ArrayList<>();
 
+    private RecyclerView.Adapter myAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class ChatRoom extends AppCompatActivity {
 
         binding.sendButton.setOnClickListener(click -> {
             messages.add(binding.textInput.getText().toString());
+            myAdapter.notifyItemInserted(messages.size()-1);
 
             //clear the previous text:
             binding.textInput.setText("");
@@ -53,7 +56,7 @@ public class ChatRoom extends AppCompatActivity {
         /**
          * A RecyclerView.Adapter object needs 3 functions to tell the view how to draw items in the list.
          */
-        binding.recycleView.setAdapter(new RecyclerView.Adapter<MyRowHolder>() {
+        binding.recycleView.setAdapter(myAdapter = new RecyclerView.Adapter<MyRowHolder>() {
             @NonNull
 
             /**
@@ -78,7 +81,6 @@ public class ChatRoom extends AppCompatActivity {
                 holder.timeText.setText("");
                 String obj = messages.get(position);
                 holder.messageText.setText(obj);
-
             }
 
             /**
