@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -57,16 +58,17 @@ public class ChatRoom extends AppCompatActivity {
             //insert into ArrayList
             messages.add(new ChatMessage(input, currentDateandTime, type));
 
-//            myAdapter.notifyItemInserted(messages.size()-1); //updates the rows
-            myAdapter.notifyDataSetChanged(); //updates the rows
+            myAdapter.notifyItemInserted(messages.size()); //updates the rows
+//            myAdapter.notifyDataSetChanged(); //updates the rows
 
             //clear input
             theTextInput.setText("");
+            System.out.println("clicked send button");
         });
 
         receButton.setOnClickListener(click ->{
             String input = theTextInput.getText().toString();
-
+            System.out.println("clicked receive button");
             boolean type = false;
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a");
             String currentDateandTime = sdf.format(new Date());
@@ -74,8 +76,9 @@ public class ChatRoom extends AppCompatActivity {
             //insert into ArrayList
             messages.add(new ChatMessage(input, currentDateandTime, type));
 
-//            myAdapter.notifyItemInserted(messages.size()-1); //updates the rows
-            myAdapter.notifyDataSetChanged(); //updates the rows
+
+            myAdapter.notifyItemInserted(messages.size()); //updates the rows
+//            myAdapter.notifyDataSetChanged(); //updates the rows
 
 
             //clear input
@@ -93,7 +96,7 @@ public class ChatRoom extends AppCompatActivity {
                 //this inflates the row layout
 
                 //int viewType is what layout to load
-                if(viewType == 1) {
+                if(viewType == 0) {
                     SentMessageBinding binding =                           //how big is parent?
                             SentMessageBinding.inflate(getLayoutInflater(), parent, false);
 
@@ -117,6 +120,8 @@ public class ChatRoom extends AppCompatActivity {
             public void onBindViewHolder(@NonNull MyRowHolder holder, int position) {
                 //update the widgets:
                 ChatMessage atThisRow = messages.get(position);
+                Log.d("ChatRoom", "Position: " + position + ", Message: " + atThisRow.message + ", Time: " + atThisRow.timeSent + ", Type: " + atThisRow.sendOrReceive);
+                holder.timeText.setText(atThisRow.timeSent);
                 holder.timeText.setText(atThisRow.timeSent);
                 holder.messageText.setText(atThisRow.message);//puts the string in position at theWord TextView
             }
@@ -139,11 +144,11 @@ public class ChatRoom extends AppCompatActivity {
             public int getItemViewType(int position){
                 if(messages.get(position).sendOrReceive)
                 {
-                    return 1;
+                    return 0;
                 }
                 else
                 {
-                    return 2;
+                    return 1;
                 }
             }
         });
