@@ -9,6 +9,7 @@ android {
     buildFeatures{
         viewBinding true
     }
+
     defaultConfig {
         applicationId "com.example.pinqisandriodlabs"
         minSdk 21
