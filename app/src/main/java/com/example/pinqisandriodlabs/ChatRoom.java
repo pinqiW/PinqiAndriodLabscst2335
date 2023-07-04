@@ -15,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pinqisandriodlabs.databinding.ActivityChatRoomBinding;
 import com.example.pinqisandriodlabs.databinding.ReceiveMessageBinding;
 import com.example.pinqisandriodlabs.databinding.SentMessageBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -227,6 +229,19 @@ public class ChatRoom extends AppCompatActivity {
                         runOnUiThread(()->{
                             myAdapter.notifyDataSetChanged(); //must be done on the main UI thread
                         });
+
+                        Snackbar.make(recyclerView,"Delete your message",Snackbar.LENGTH_LONG)
+                                .setAction("UNDO",clk -> {
+                                    Executor myThread= Executors.newSingleThreadExecutor();
+                                    myThread.execute(()->{
+                                        myDAO.anyFunctionNameForInsertion(toDelete);
+                                        messages.add(index, toDelete);
+                                    });
+
+                                    runOnUiThread(()-> myAdapter.notifyDataSetChanged());
+
+                                })
+                                .show();
 
                     });
 
