@@ -1,10 +1,12 @@
 package com.example.pinqisandriodlabs;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,9 @@ import com.example.pinqisandriodlabs.databinding.SentMessageBinding;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class ChatRoom extends AppCompatActivity {
 
@@ -35,6 +40,12 @@ public class ChatRoom extends AppCompatActivity {
     protected EditText theTextInput;
     ChatRoomViewModel model;
     RecyclerView.Adapter myAdapter;
+
+    MessageDatabase mydb;
+
+    ChatMessageDAO myDAO;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +53,23 @@ public class ChatRoom extends AppCompatActivity {
         ActivityChatRoomBinding binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+
+        // open a database:
+        mydb = Room.databaseBuilder(getApplicationContext(), MessageDatabase.class, "database-name").build();
+        myDAO = mydb.cmDAO(); // only 1 function in MessageDatabase
+
+        model = new ViewModelProvider(this).get(ChatRoomViewModel.class);
+//        messages = model.messages;
+
+
+        // add all previous messages from database:
+        Executor thread = Executors.newSingleThreadExecutor();
+        thread.execute(()-> {
+                List<ChatMessage> allMessages  = myDAO.getAllMessages();
+                messages.addAll(allMessages);
+        });
+
 
         myButton = binding.sendButton;
         receButton = binding.receButton;
@@ -55,11 +83,20 @@ public class ChatRoom extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a");
             String currentDateandTime = sdf.format(new Date());
 
+            // add into database and obtain id
+            ChatMessage newMessage = new ChatMessage(input, currentDateandTime,type);
+
+            //run the query in a separate thread cuz it's not allowed to run in the main GUI thread
+            Executor thread1= Executors.newSingleThreadExecutor();
+            thread1.execute(()-> {
+                /*this runs in another thread*/
+                newMessage.id = myDAO.anyFunctionNameForInsertion(newMessage);
+            });
+
             //insert into ArrayList
             messages.add(new ChatMessage(input, currentDateandTime, type));
 
             myAdapter.notifyItemInserted(messages.size()); //updates the rows
-//            myAdapter.notifyDataSetChanged(); //updates the rows
 
             //clear input
             theTextInput.setText("");
@@ -78,8 +115,6 @@ public class ChatRoom extends AppCompatActivity {
 
 
             myAdapter.notifyItemInserted(messages.size()); //updates the rows
-//            myAdapter.notifyDataSetChanged(); //updates the rows
-
 
             //clear input
             theTextInput.setText("");
@@ -172,6 +207,38 @@ public class ChatRoom extends AppCompatActivity {
         // The view that is passed in as a parameter represents the ConstraintLayout that is the root of the row.
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(click ->{
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
+                builder.setMessage("Do you wan to delete this?")
+                        .setTitle("Question:")
+                        .setPositiveButton("Go Ahead",(dlg, which)->{
+                    //what's the index?
+                    int index = getAdapterPosition();
+                    ChatMessage toDelete = messages.get(index);
+
+                    //run the query in a separate thread cuz it's not allowed to run in the main GUI thread
+                    Executor thread1= Executors.newSingleThreadExecutor();
+                    thread1.execute(()-> {
+                        /*this runs in another thread*/
+                        myDAO.deleteThisChatMessage( toDelete);
+                        messages.remove(index); // remove from arraylist
+
+                        runOnUiThread(()->{
+                            myAdapter.notifyDataSetChanged(); //must be done on the main UI thread
+                        });
+
+                    });
+
+                })
+                        .setNegativeButton("No", (dl,wh) ->{
+                    /* Hide the dialog, does nothing */
+                })
+                        .create().show(); // show the dialog box
+
+
+            });
+
             messageText = itemView.findViewById(R.id.message);
             timeText = itemView.findViewById(R.id.time);
         }

@@ -15,7 +15,7 @@ public class ChatMessage {
     @PrimaryKey(autoGenerate = true)
 
     @ColumnInfo(name="id")
-    public int id;
+    public long id;
 
     @ColumnInfo(name="Message")
     String message;
@@ -25,10 +25,14 @@ public class ChatMessage {
 
     @ColumnInfo(name = "TimeSent")
     String timeSent;
-    public ChatMessage(String m, String t, boolean type){
+    public ChatMessage( String m, String t, boolean type){
         message = m;
         timeSent = t;
         sendOrReceive = type;
     }
 
+
+    public ChatMessage(){
+
+    }
 }
