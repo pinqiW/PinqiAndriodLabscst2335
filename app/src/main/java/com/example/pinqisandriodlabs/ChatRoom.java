@@ -33,12 +33,17 @@ public class ChatRoom extends AppCompatActivity {
 
     /** This holds the edit text for typing into */
     protected EditText theTextInput;
-    ChatRoomViewModel model;
+    ChatRoomViewModel chatModel;
     RecyclerView.Adapter myAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = new ViewModelProvider(this).get(ChatRoomViewModel.class);
+        chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
+        messages = chatModel.messages.getValue();
+        if(messages == null)
+        {
+            chatModel.messages.postValue( messages = new ArrayList<>());
+        }
         ActivityChatRoomBinding binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
