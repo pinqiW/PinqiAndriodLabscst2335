@@ -1,138 +1,77 @@
 package com.example.pinqisandriodlabs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-/** This is main page for a simple password checker app
- * @author PinqiW
+
+/**This page represents the first page loaded
+ * @author Eric TOrunski
  * @version 1.0
  */
 
 public class MainActivity extends AppCompatActivity {
 
 
-    /** This holds the text at the centre of the scree **/
-    TextView tv = null;
+    /** This is a javadoc comment */
 
-    /** This holds the text at the centre of the scree **/
-    EditText et = null;
+    /*   This is a normal comment */
 
-    /** This holds the button at the centre of the scree **/
-    Button btn = null;
+    /** This holds the "Hello world" text view */
+    protected TextView theText;
 
 
-    // equivalent to    static void main(String args[])
+    /** This holds the "Click me" button */
+    protected Button myButton;
+
+
+    /** This holds the edit text for typing into */
+    protected EditText theEditText;
+
+    //equivalent to        static void main(String args[])
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); //calling onCreate from parent class
 
-        // loads an XML file on the page
-        setContentView(R.layout.activity_main);
 
-        tv = findViewById(R.id.textView);
-        et = findViewById(R.id.editTextText);
-        btn = findViewById(R.id.button);
+        //loads an XML file on the page
+        setContentView(  R.layout.activity_main   );
 
-        btn.setOnClickListener((v) -> {
-            String pswd = et.getText().toString();
-            checkPasswordComplexity( pswd);
-            if(checkPasswordComplexity(pswd)){
-                tv.setText("Your password meets the requirements.");
-            }else{
-                tv.setText("Your password shall not pass!");
+        theText = findViewById(R.id.textView);
+        myButton = findViewById(R.id.button);
+        theEditText = findViewById(R.id.editTextText);
+
+        myButton.setOnClickListener( click -> {
+            String input = theEditText.getText().toString();
+
+            if(checkInput(input, '='))
+            {
+                theText.setText("We found =");
             }
+            else theText.setText("NO = found in the text");
+
         });
     }
 
-
-    /**
-     * method checks if the character is any of the special character
-     * @param chara which is the character that's being checked
-     * @return return true if the character is one of  special character
+    /** This function checks the input string
+     *
+     * @param input  The string to search
+     * @param toLookFOr  The character to compare
+     * @return true if toLookFor is part of the input string, false otherwise
      */
-    boolean isSpecialCharacter(char chara){
-        switch (chara){
-            case '#':
-            case '?':
-            case '*':
-            case '$':
-            case '%':
-            case '^':
-            case '&':
-            case '@':
-            case '!':
-                return true;
-            default:
-                return false;
-        }
 
+    boolean checkInput(String input, char toLookFOr  ){
+        boolean found = false;
+
+        for(int i = 0; i < input.length(); i++ ){
+            char c = input.charAt(i);
+            if(c == toLookFOr)
+                found = true;
+        }
+        return found;
     }
-
-    /**
-     * method checks if this string has an Upper Case letter, a lower case letter, a number, and a special symbol (#$%^&*!@?).
-     * @param pswd The String object that we are checking
-     * @return  Return true if the password entered meet all four criteria, otherwise return false
-     */
-    private boolean checkPasswordComplexity(String pswd) {
-        boolean foundUpperCase, foundLowerCase, foundNumber, foundSpecial;
-        foundUpperCase = foundLowerCase = foundNumber = foundSpecial = false;
-
-        for(int i = 0; i < pswd.length();i++){
-            char c = pswd.charAt(i);
-            if (Character.isDigit(c)) {
-                foundNumber = true;
-            }
-
-            if (Character.isUpperCase(c)) {
-                foundUpperCase = true;
-            }
-
-            if (Character.isLowerCase(c)) {
-               foundLowerCase = true;
-            }
-            if(isSpecialCharacter(c)){
-                foundSpecial = true;
-            }
-
-            if (foundUpperCase && foundLowerCase && foundNumber && foundSpecial) {
-                return true;
-            }
-
-        }
-
-        if(!foundUpperCase)
-        {
-            Toast.makeText( this,"missing an upper case letter", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        else if(!foundLowerCase)
-        {
-            Toast.makeText( this,"missing an lower case letter", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        else if(!foundNumber) {
-            Toast.makeText( this,"missing a number", Toast.LENGTH_SHORT).show();
-        }
-
-        else if(!foundSpecial) {
-            Toast.makeText( this,"missing a special character", Toast.LENGTH_SHORT).show();
-        }
-        else
-            return  true; //only get here if they're all true
-
-
-        return false;
-
-    }
-
-
 
 
 }
